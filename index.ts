@@ -69,6 +69,7 @@ const getConfig = (projectPath?: string) => {
     configPath = ts.sys.resolvePath(projectPath)
     if (!ts.sys.fileExists(configPath)) {
       throw new Error(`Config file not found: ${projectPath}`)
+      // return {options: {}}
     }
   } else {
     configPath = ts.findConfigFile('./', ts.sys.fileExists, 'tsconfig.json')
@@ -91,10 +92,7 @@ const getConfig = (projectPath?: string) => {
   return parsedCommandLine
 }
 
-const typeToString = (
-  checker: ts.TypeChecker,
-  c: ts.TypeAliasDeclaration,
-) =>
+const typeToString = (checker: ts.TypeChecker, c: ts.TypeAliasDeclaration) =>
   checker.typeToString(
     checker.getTypeAtLocation(c.type),
     undefined,
@@ -111,12 +109,14 @@ interface RunOptions {
 const run = (sourcePath: string, args: string[], options: RunOptions = {}) => {
   const config = getConfig(options.projectPath)
   const host = ts.createCompilerHost(config.options)
-  const readFile = host.readFile.bind(host)
+  const fakeSourcePath = sourcePath.endsWith('.ts')
+    ? sourcePath
+    : `${sourcePath}.ts`
 
+  const readFile = host.readFile.bind(host)
   host.readFile = (fileName: string) => {
-    const content = readFile(fileName)
-    if (ts.sys.resolvePath(fileName) !== ts.sys.resolvePath(sourcePath))
-      return content
+    if (ts.sys.resolvePath(fileName) !== ts.sys.resolvePath(fakeSourcePath))
+      return readFile(fileName)
 
     let typeDefinition: string
     if (options.evalString) {
@@ -129,12 +129,14 @@ const run = (sourcePath: string, args: string[], options: RunOptions = {}) => {
       typeDefinition = `type ${resultName} = Main`
     }
 
+    const content = readFile(sourcePath)
+
     return content ? `${content}\n${typeDefinition}` : typeDefinition
   }
 
-  const program = ts.createProgram([sourcePath], config.options, host)
+  const program = ts.createProgram([fakeSourcePath], config.options, host)
   const checker = program.getTypeChecker()
-  const sourceFile = program.getSourceFile(sourcePath)
+  const sourceFile = program.getSourceFile(fakeSourcePath)
 
   if (!sourceFile) throw new Error(`Could not read source file: ${sourcePath}`)
 
