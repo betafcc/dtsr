@@ -73,13 +73,12 @@ Run with:
 "Hello world!"
 ```
 
-> [!TIP] Tip: Making .d.ts executables
+> [!TIP]
+> **Making .d.ts executables**:
 > 
 > You can make your `.d.ts` files executable by adding the shebang line:
-> 
 > `#!/usr/bin/env dtsr`
-> 
-> (don't forget to `chmod +x ./Hello.d.ts`)
+> <sub>(don't forget to `chmod +x ./Hello.d.ts`)</sub>
 
 
 ### Eval a type expression in a file context
