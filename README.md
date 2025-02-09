@@ -86,7 +86,7 @@ Run with:
 By default, `dtsr` pass the command-line arguments to the type `Main` on the passed file, but you can also evaluate a custom expression using the `--eval` flag:
 
 ```bash
-> dtsr --eval "Main<['world']>" ./Hello.d.ts
+> dtsr --eval 'Main<["world"]>' ./Hello.d.ts
 "Hello world!"
 ```
 
@@ -131,20 +131,20 @@ Examples:
 
 ### How it works
 
-1. **With a source file**: By default, dtsr looks for a type named Main in your .d.ts file.
-   - If you pass extra arguments ([args...]) after the file name, these will be provided as Main<[...args]>.
-   - If no additional arguments are given, it simply evaluates Main.
+1. **With a source file**: By default, dtsr looks for a type named `Main` in your `.d.ts` file.
+   - If you pass extra arguments (`[args...]`) after the file name, these will be provided as `Main<[...args]>`.
+   - If no additional arguments are given, it simply evaluates `Main`.
 
-2. **With --eval**: Instead of looking for Main, dtsr will create a temporary type alias to evaluate whatever expression you provide.
-   - If you also specify a source-file, that file’s types will still be in scope, so you can reference them from your expression.
+2. **With --eval**: Instead of looking for `Main`, `dtsr` will create a temporary type alias to evaluate whatever expression you provide.
+   - If you also specify a `<source-file>`, that file's types will still be in scope, so you can reference them from your expression.
 
-3. **Reading configuration**: By default, dtsr tries to find and use a local tsconfig.json to respect any custom compiler settings you might have.
-    - If you want to point to a specific tsconfig file, use -p or --project.
+3. **Reading configuration**: By default, `dtsr` tries to find and use a local `tsconfig.json` to respect any custom compiler settings you might have.
+    - If you want to point to a specific tsconfig file, use `-p` or `--project`.
 
 4. **Behind the scenes**:
 
-   - dtsr creates a short “synthetic” TypeScript file that imports or inlines your expression as type __dtsr_result_type = ....
-   - It then uses the TypeScript compiler APIs to compute the type’s string representation.
+   - dtsr creates a in-memory TypeScript file that inlines your expression as type __dtsr_result_type = ....
+   - It then uses the TypeScript compiler APIs to compute the type's string representation.
 
 
 ### CLI options in detail
@@ -160,7 +160,7 @@ Examples:
   ```bash
   dtsr --eval "Foo<string, number>"
   ```
-  If a <source-file> is also specified, you can reference its exported types in your expression.
+  If a `<source-file>` is also specified, you can reference its exported types in your expression.
 
 - **`-p, --project <path>`**  
   Specifies a custom tsconfig.json to use instead of automatically searching for one in the current directory:
@@ -238,7 +238,7 @@ dtsr --eval '`${Main} How are you?`' ./Hello.d.ts
 
 ### Common Gotchas
 
-- **No `Main` type found**: If you don’t provide `--eval` and `dtsr` can’t find `Main` in the file, you’ll get an error. Either rename your main entry type to `Main` or use `--eval`.
+- **No `Main` type found**: If you don't provide `--eval` and `dtsr` can't find `Main` in the file, you'll get an error. Either rename your main entry type to `Main` or use `--eval`.
 
 - **Invalid arguments**: All `[args...]` passed after the source file are interpreted as strings. Make sure your `Main` type is expecting that structure (`string[]`).
 
