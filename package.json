@@ -1,0 +1,16 @@
+{
+  "name": "dtsx",
+  "module": "index.ts",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Type-level TypeScript runner",
+  "bin": {
+    "dtsx": "index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "typescript": "^5.0.0"
+  }
+}
