@@ -21,7 +21,7 @@ Declaration TypeScript Runner (dtsr): The easiest way to run your <em>.d.ts</em>
 
 <br>
 
-<a href="#documentation">Documentation</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#getting-started">Getting started →</a>
+<a href="#getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#community-examples">Community examples →</a>
 
 </div>
 
