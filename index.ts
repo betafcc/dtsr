@@ -14,9 +14,9 @@ Options:
   -h, --help               Display this help message
 
 Examples:
-  $ dtsr ./Test.d.ts Joe
-  $ dtsr -e 'Main<"Joe">' ./Test.d.ts
-  $ dtsr -p tsconfig.prod.json ./Test.d.ts Joe
+  $ dtsr ./Main.d.ts Joe
+  $ dtsr -e 'Foo<string, number>' ./Main.d.ts
+  $ dtsr -p tsconfig.prod.json ./Main.d.ts Joe
 `
 
 const parseArgs = (

@@ -2,6 +2,7 @@
   "name": "dtsr",
   "version": "0.1.6",
   "main": "dist/index.js",
+  "license": "MIT",
   "bin": {
     "dtsr": "dist/index.js"
   },
@@ -17,5 +18,9 @@
   },
   "dependencies": {
     "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betafcc/dtsr.git"
   }
 }
