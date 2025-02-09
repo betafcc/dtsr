@@ -1,7 +1,8 @@
+#!/usr/bin/env node
 import ts from 'typescript'
 
 const helpMessage = `
-Usage: dtsx [options] <source-file> [args...]
+Usage: dtsr [options] <source-file> [args...]
 
 Evaluate type-level expressions from TypeScript declaration files.
 
@@ -11,9 +12,9 @@ Options:
   -h, --help               Display this help message
 
 Examples:
-  $ dtsx ./Test.d.ts Joe
-  $ dtsx -e 'Main<"Joe">' ./Test.d.ts
-  $ dtsx -p tsconfig.prod.json ./Test.d.ts Joe
+  $ dtsr ./Test.d.ts Joe
+  $ dtsr -e 'Main<"Joe">' ./Test.d.ts
+  $ dtsr -p tsconfig.prod.json ./Test.d.ts Joe
 `
 
 const parseArgs = (
@@ -61,7 +62,7 @@ const parseArgs = (
   return { project, eval: evalStr, help, sourcePath: undefined, args: [] }
 }
 
-export const getConfig = (projectPath?: string) => {
+const getConfig = (projectPath?: string) => {
   let configPath: string | undefined
 
   if (projectPath) {
@@ -90,7 +91,7 @@ export const getConfig = (projectPath?: string) => {
   return parsedCommandLine
 }
 
-export const typeToString = (
+const typeToString = (
   checker: ts.TypeChecker,
   c: ts.TypeAliasDeclaration,
 ) =>
@@ -100,7 +101,7 @@ export const typeToString = (
     ts.TypeFormatFlags.InTypeAlias | ts.TypeFormatFlags.NoTruncation,
   )
 
-const resultName = '__dtsx_result_type'
+const resultName = '__dtsr_result_type'
 
 interface RunOptions {
   projectPath?: string
