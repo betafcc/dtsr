@@ -106,8 +106,8 @@ In fact, if you just want to quickly evaluate a type expression, you don't even 
 
 ### Overview
 
-**dtsr** (Declaration TypeScript Runner) lets you evaluate types from a TypeScript declaration file (`.d.ts`) or directly from an inline expression.
-You can think of it as a quick way to “run” your type-level logic without the usual compile-time friction.
+**dtsr** (Declaration TypeScript Runner) lets you evaluate types from a TypeScript declaration file (`.d.ts`), a normal TypeScript (`.ts`, `.tsx`) or directly from an inline expression.
+You can think of it as a quick way to “run” your type-level logic instead of hoping that hovering a symbol in VSCode will not truncate the type beyond recognition.
 
 ### Usage
 
@@ -184,8 +184,8 @@ export type Main<Argv extends string[]> = `Hello ${Argv[0]}!`
 
 Run:
 ```bash
-dtsr ./Hello.d.ts world
-# Outputs: "Hello world!"
+> dtsr ./Hello.d.ts world
+"Hello world!"
 ```
 
 The use of command line arguments is optional, instead you can:
@@ -196,15 +196,15 @@ export type Main = "Hello world!"
 
 Run:
 ```bash
-dtsr ./Hello.d.ts
-# Outputs: "Hello world!"
+> dtsr ./Hello.d.ts
+"Hello world!"
 ```
 
 Or you can just evaluate an expression using the types defined on the file:
 
 ```bash
-dtsr --eval '`${Main} How are you?`' ./Hello.d.ts
-# Outputs: "Hello world! How are you?"
+> dtsr --eval '`${Main} How are you?`' ./Hello.d.ts
+"Hello world! How are you?"
 ```
 
 ### Advanced usage
@@ -212,14 +212,14 @@ dtsr --eval '`${Main} How are you?`' ./Hello.d.ts
 1. **Evaluate any expression without a file**  
   You can skip specifying a source file entirely by just using --eval. For instance:
   ```bash
-  dtsr --eval '"world" extends string ? "yes" : "no"'
-  # Outputs: "yes"
+  > dtsr --eval '"world" extends string ? "yes" : "no"'
+  "yes"
   ```
 
 2. **Use with a custom tsconfig**  
   If you have a custom tsconfig file, you can specify it with --project:
   ```bash
-  dtsr --project tsconfig.prod.json ./MyTypes.d.ts
+  > dtsr --project tsconfig.prod.json ./MyTypes.d.ts
   ```
 
 3. **Make files directly executable**  
