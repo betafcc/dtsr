@@ -63,7 +63,8 @@ npx dtsr --help
 Create a file `Hello.d.ts`:
 
 ```ts
-export type Main<Argv extends string[]> = `Hello ${Argv[0]}!`
+export type Main<Argv extends string[]>
+  = `Hello ${Argv[0]}!`
 ```
 
 Run with:
@@ -179,7 +180,8 @@ Examples:
 `Hello.d.ts`:
 
 ```ts
-export type Main<Argv extends string[]> = `Hello ${Argv[0]}!`
+export type Main<Argv extends string[]>
+  = `Hello ${Argv[0]}!`
 ```
 
 Run:
@@ -257,7 +259,8 @@ For more examples, head over to the [Community Examples](#community-examples) se
 ```
 
 ```ts
-type Main<Argv extends string[]> = Take<ParseInt<Argv[0]>, FizzBuzzIterator[1]>
+type Main<Argv extends string[]>
+  = Take<ParseInt<Argv[0]>, FizzBuzzIterator[1]>
 
 type FizzBuzzIterator<
   S extends Record<any, any> = { 3: []; 5: []; i: [] },
@@ -283,7 +286,8 @@ type ParseInt<S extends string> = S extends `${infer N extends number}` ? N : ne
 ```
 
 ```ts
-type Main<Argv extends string[]> = Fib<ParseInt<Argv[0]>>
+type Main<Argv extends string[]>
+  = Fib<ParseInt<Argv[0]>>
 
 type Fib<X extends number>
   = X extends 0 ? 0
@@ -306,7 +310,8 @@ type Sub<A extends number, B extends number> = B extends 0 ? A : Sub<Dec<A>, Dec
 ```
 
 ```ts
-type Main<Argv extends string[]> = Parse<Argv[0]>
+type Main<Argv extends string[]>
+  = Parse<Argv[0]>
 
 type Parse<Q extends string>
   = Q extends '' ? {}
