@@ -63,7 +63,7 @@ npx dtsr --help
 Create a file `Hello.d.ts`:
 
 ```ts
-export type Main<Argv extends string> = `Hello ${Argv[0]}!`
+export type Main<Argv extends string[]> = `Hello ${Argv[0]}!`
 ```
 
 Run with:
